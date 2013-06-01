@@ -4,5 +4,9 @@
     <string name="app_name">collject-android</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    
+    <string name="tab_products">Products</string>
+    <string name="tab_solution">Solution</string>
+    <string name="tab_problems">Problems</string>
 
 </resources>
