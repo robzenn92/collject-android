@@ -13,6 +13,10 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +34,7 @@ public class MyAdapter extends ArrayAdapter<Data> {
 
     public static final int MAX_TAGS_LEN = 40;
 	
+    //TEST
 	public MyAdapter(Context context, int test) {
 		super(context, R.layout.my_list_item);
 		this.context = context;
@@ -49,8 +54,24 @@ public class MyAdapter extends ArrayAdapter<Data> {
 			data.add(new Data("MY", tst, null));
 			data.add(new Data("TOPO", tst, null));
 		}
+		if (test == 1) {
+			data = new ArrayList<Data>();
+			ArrayList<String> tst = new ArrayList<String>(6);
+			tst.add("#android");
+			tst.add("#javammerda");
+			tst.add("#daleks");
+			tst.add("#bruciare");
+			tst.add("#alberi");
+			tst.add("#ios");
+			data.add(new Data("blek", tst, null));
+			data.add(new Data("GINO", tst, null));
+			data.add(new Data("MY", tst, null));
+			data.add(new Data("TOPO", tst, null));
+			data.add(new Data("MOAR", tst, null));
+			data.add(new Data("DALEKS", tst, null));
+		}
 		this.addAll(data);
-		this.notifyDataSetChanged();
+//		this.notifyDataSetChanged();
 	}
 
 	public MyAdapter(Context context, Data[] data) {
@@ -100,6 +121,16 @@ public class MyAdapter extends ArrayAdapter<Data> {
 			else tmp = asd;
 		}
 		mTagsTextView.setText(tmp);
+		rowView.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				FragmentManager fm = ((FragmentActivity) context).getSupportFragmentManager();
+				FragmentTransaction ft = fm.beginTransaction();
+				ListFragment lf = (ListFragment) fm.findFragmentById(R.id.main_fragment);
+				lf.setListAdapter(new MyAdapter(context, 1));
+			}
+		});
 		return rowView;
 	}
 
