@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
@@ -13,10 +14,6 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.collject_android.ProblemEnlarged;
 import com.example.collject_android.R;
 import com.example.collject_android.utils.Data;
 
@@ -125,10 +123,14 @@ public class MyAdapter extends ArrayAdapter<Data> {
 			
 			@Override
 			public void onClick(View v) {
+				/*
 				FragmentManager fm = ((FragmentActivity) context).getSupportFragmentManager();
 				FragmentTransaction ft = fm.beginTransaction();
-				ListFragment lf = (ListFragment) fm.findFragmentById(R.id.main_fragment);
+				ListFragment lf = (ListFragment) fm.findFragmentById(R.id.problem_fragment);
 				lf.setListAdapter(new MyAdapter(context, 1));
+				*/
+				Intent i = new Intent(context, ProblemEnlarged.class);
+				context.startActivity(i);
 			}
 		});
 		return rowView;

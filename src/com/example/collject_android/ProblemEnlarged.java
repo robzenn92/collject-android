@@ -1,14 +1,14 @@
 package com.example.collject_android;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 
-public class ProblemEnlarged extends FragmentActivity {
+public class ProblemEnlarged extends Activity {
 
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		this.setContentView(R.layout.activity_problem_enlarged);
+		this.setContentView(R.layout.fragment_problem_enlarged);
 	}
 
 	@Override
