@@ -1,10 +1,18 @@
 package com.example.collject_android.adapters;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +25,7 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.provider.SyncStateContract.Constants;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,12 +52,12 @@ public class MyAdapter extends ArrayAdapter<Data> {
 		if (test == 0) {
 			data = new ArrayList<Data>();
 			ArrayList<String> tst = new ArrayList<String>(6);
-			tst.add("#bruciare");
-			tst.add("#alberi");
-			tst.add("#ios");
-			tst.add("#android");
-			tst.add("#javammerda");
-			tst.add("#daleks");
+			tst.add("bruciare");
+			tst.add("negri");
+			tst.add("ebrei");
+			tst.add("android");
+			tst.add("javammerda");
+			tst.add("daleks");
 			data.add(new Data("blek", tst, null));
 			data.add(new Data("MOAR", tst, null));
 			data.add(new Data("DALEKS", tst, null));
@@ -57,16 +66,37 @@ public class MyAdapter extends ArrayAdapter<Data> {
 			data.add(new Data("TOPO", tst, null));
 			JSONArray mJSONArray = new JSONArray(tst);
 			Log.e("huge json", mJSONArray.toString());
+			
+			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(1);
+			params.add(new BasicNameValuePair("dio piccione ti sbora sulle scarpe", mJSONArray.toString()));
+			HttpClient client = new DefaultHttpClient();
+			HttpPost post = new HttpPost("http://23.21.187.163/api/project/search/");
+			
+			try {
+				post.setEntity(new UrlEncodedFormEntity(params));
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+			}
+			JSONObject json = null;
+			String jsonString;
+			try {
+				jsonString = EntityUtils.toString(client.execute(post).getEntity());
+				json = new JSONObject(jsonString);
+			} catch (Exception e) {
+				Log.e(this.getClass().getName(), e.toString());
+				e.printStackTrace();
+			}
+			
 		}
 		if (test == 1) {
 			data = new ArrayList<Data>();
 			ArrayList<String> tst = new ArrayList<String>(6);
-			tst.add("#android");
-			tst.add("#javammerda");
-			tst.add("#daleks");
-			tst.add("#bruciare");
-			tst.add("#alberi");
-			tst.add("#ios");
+			tst.add("android");
+			tst.add("javammerda");
+			tst.add("daleks");
+			tst.add("bruciare");
+			tst.add("alberi");
+			tst.add("ios");
 			data.add(new Data("blek", tst, null));
 			data.add(new Data("GINO", tst, null));
 			data.add(new Data("MY", tst, null));
@@ -75,6 +105,27 @@ public class MyAdapter extends ArrayAdapter<Data> {
 			data.add(new Data("DALEKS", tst, null));
 			JSONArray mJSONArray = new JSONArray(tst);
 			Log.e("huge json", mJSONArray.toString());
+			
+			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(1);
+			params.add(new BasicNameValuePair("dio piccione ti sbora sulle scarpe", mJSONArray.toString()));
+			HttpClient client = new DefaultHttpClient();
+			HttpPost post = new HttpPost("http://23.21.187.163/api/project/search/");
+			
+			try {
+				post.setEntity(new UrlEncodedFormEntity(params));
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+			}
+			JSONObject json = null;
+			String jsonString;
+			try {
+				jsonString = EntityUtils.toString(client.execute(post).getEntity());
+				json = new JSONObject(jsonString);
+			} catch (Exception e) {
+				Log.e(this.getClass().getName(), e.toString());
+				e.printStackTrace();
+			}
+			
 		}
 		this.addAll(data);
 //		this.notifyDataSetChanged();
