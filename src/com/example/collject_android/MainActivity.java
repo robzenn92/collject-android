@@ -67,27 +67,11 @@ public class MainActivity extends FragmentActivity implements
 					}
 				});
 
+		createTab(mSectionsPagerAdapter.getPageTitle(0).toString());
 		createTab(mSectionsPagerAdapter.getPageTitle(1).toString());
 		createTab(mSectionsPagerAdapter.getPageTitle(2).toString());
-		createTab(mSectionsPagerAdapter.getPageTitle(3).toString());
-		createTab(mSectionsPagerAdapter.getPageTitle(4).toString());
-		createTab(mSectionsPagerAdapter.getPageTitle(5).toString());
-		
-
-		// For each of the sections in the app, add a tab to the action bar.
-		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-			// Create a tab with text corresponding to the page title defined by
-			// the adapter. Also specify this Activity object, which implements
-			// the TabListener interface, as the callback (listener) for when
-			// this tab is selected.
-			
-			
-			actionBar.addTab(actionBar.newTab()
-					.setText(mSectionsPagerAdapter.getPageTitle(i))
-					.setIcon(getResources().getDrawable(R.drawable.plus))
-					.setTabListener(this));
-			
-		}
+		createTab(mSectionsPagerAdapter.getPageTitle(3).toString(), R.drawable.plus);
+		createTab(mSectionsPagerAdapter.getPageTitle(4).toString(), R.drawable.plus);
 	}
 	public void createTab(String title) {
         ActionBar.Tab tab = getActionBar().newTab();
@@ -183,14 +167,14 @@ public class MainActivity extends FragmentActivity implements
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
 		public DummySectionFragment() { }
-
+		
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_main_dummy,
 					container, false);
 			TextView dummyTextView = (TextView) rootView
-					.findViewById(R.id.section_label);
+					.findViewById(R.id.cardsview);
 			dummyTextView.setText(Integer.toString(getArguments().getInt(
 					ARG_SECTION_NUMBER)));
 			return rootView;
