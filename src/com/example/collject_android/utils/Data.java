@@ -1,20 +1,25 @@
 package com.example.collject_android.utils;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
 import android.graphics.Bitmap;
 
 public class Data {
 	String title;
-	String tags;
+	ArrayList<String> tags;
     Bitmap image;
 	
 	public Data() {
 		title = "";
-		tags = "";
+		tags = null;
 	}
 
-	public Data(String title, String desc, Bitmap image) {
+	public Data(String title, Collection<String> desc, Bitmap image) {
 		this.title = title;
-		this.tags = desc;
+		this.tags = new ArrayList<String>();
+		this.tags.addAll(desc);
 	}
 
 	public String getTitle() {
@@ -25,12 +30,13 @@ public class Data {
 		this.title = title;
 	}
 
-	public String getTags() {
-		return tags;
+	public Iterator<String> getTags() {
+		return tags.listIterator();
 	}
 
-	public void setTags(String tags) {
-		this.tags = tags;
+	public void setTags(Collection<String> tags) {
+		this.tags.clear();
+		this.tags.addAll(tags);
 	}
 
 	public Bitmap getImage() {
