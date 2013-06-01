@@ -14,11 +14,15 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity implements
 		ActionBar.TabListener {
 
+	private ActionBar actionBar;
+	private TabHost tabHost;
+	
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
 	 * fragments for each of the sections. We use a
@@ -40,9 +44,9 @@ public class MainActivity extends FragmentActivity implements
 		setContentView(R.layout.activity_main);
 
 		// Set up the action bar.
-		final ActionBar actionBar = getActionBar();
+		actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
+		
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the app.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(
@@ -63,18 +67,43 @@ public class MainActivity extends FragmentActivity implements
 					}
 				});
 
+		createTab(mSectionsPagerAdapter.getPageTitle(1).toString());
+		createTab(mSectionsPagerAdapter.getPageTitle(2).toString());
+		createTab(mSectionsPagerAdapter.getPageTitle(3).toString());
+		createTab(mSectionsPagerAdapter.getPageTitle(4).toString());
+		createTab(mSectionsPagerAdapter.getPageTitle(5).toString());
+		
+
 		// For each of the sections in the app, add a tab to the action bar.
 		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
 			// Create a tab with text corresponding to the page title defined by
 			// the adapter. Also specify this Activity object, which implements
 			// the TabListener interface, as the callback (listener) for when
 			// this tab is selected.
+			
+			
 			actionBar.addTab(actionBar.newTab()
 					.setText(mSectionsPagerAdapter.getPageTitle(i))
+					.setIcon(getResources().getDrawable(R.drawable.plus))
 					.setTabListener(this));
+			
 		}
 	}
-
+	public void createTab(String title) {
+        ActionBar.Tab tab = getActionBar().newTab();
+        tab.setText(title);
+        tab.setTabListener(this);
+        getActionBar().addTab(tab);
+	}
+	
+    public void createTab(String title, int icon) {
+        ActionBar.Tab tab = getActionBar().newTab();
+        tab.setText(title);
+		tab.setIcon(getResources().getDrawable(icon));
+        tab.setTabListener(this);
+        getActionBar().addTab(tab);
+    }
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -124,7 +153,6 @@ public class MainActivity extends FragmentActivity implements
 
 		@Override
 		public int getCount() {
-			// Show 3 total pages.
 			return 5;
 		}
 
@@ -139,7 +167,7 @@ public class MainActivity extends FragmentActivity implements
 			case 2:
 				return getString(R.string.tab_solution).toUpperCase(l);
 			}
-			return null;
+			return "";
 		}
 	}
 
@@ -154,8 +182,7 @@ public class MainActivity extends FragmentActivity implements
 		 */
 		public static final String ARG_SECTION_NUMBER = "section_number";
 
-		public DummySectionFragment() {
-		}
+		public DummySectionFragment() { }
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -169,5 +196,4 @@ public class MainActivity extends FragmentActivity implements
 			return rootView;
 		}
 	}
-
 }
