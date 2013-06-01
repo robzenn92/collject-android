@@ -4,9 +4,13 @@
     <string name="app_name">collject-android</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    
     <string name="tab_products">Products</string>
     <string name="tab_solution">Solution</string>
     <string name="tab_problems">Problems</string>
+    <string name="lorem">Butcher put a bird on it ethical, authentic in craft beer Truffaut skateboard scenester street art.  Occupy tote bag asymmetrical, sint qui fashion axe Pinterest seitan sunt mustache keytar commodo hella. Brooklyn authentic intelligentsia aliqua readymade Marfa. Farm-to-table Bushwick sed lo-fi, wayfarers Echo Park hella gastropub stumptown organic 
+           post-ironic. Mumblecore farm-to-table salvia, High Life scenester street art Neutra wayfarers 
+           laboris cardigan plaid next level. Jean shorts salvia tote bag, narwhal Pinterest butcher put a 
+           bird on it disrupt YOLO ut art party. McSweeney\'s mlkshk disrupt viral, nostrud beard 
+           assumenda stumptown fugiat blog tattooed et tumblr.</string>
 
 </resources>

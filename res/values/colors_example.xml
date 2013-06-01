@@ -19,4 +19,10 @@
 
 <resources>
     <color name="pressed_example">#CC384F66</color>
+    
+    <color name="light_blue">#46637F</color>
+    <color name="blue">#384F66</color>
+    <color name="green">#3E7300</color>
+    <color name="light_light_grey">#ECF0F1</color>
+    <color name="light_grey">#BDC3C7</color>
 </resources>
