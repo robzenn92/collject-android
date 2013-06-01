@@ -1,7 +1,10 @@
 package com.example.collject_android.adapters;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+
+import org.json.JSONArray;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +17,7 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +55,8 @@ public class MyAdapter extends ArrayAdapter<Data> {
 			data.add(new Data("GINO", tst, null));
 			data.add(new Data("MY", tst, null));
 			data.add(new Data("TOPO", tst, null));
+			JSONArray mJSONArray = new JSONArray(tst);
+			Log.e("huge json", mJSONArray.toString());
 		}
 		if (test == 1) {
 			data = new ArrayList<Data>();
@@ -67,6 +73,8 @@ public class MyAdapter extends ArrayAdapter<Data> {
 			data.add(new Data("TOPO", tst, null));
 			data.add(new Data("MOAR", tst, null));
 			data.add(new Data("DALEKS", tst, null));
+			JSONArray mJSONArray = new JSONArray(tst);
+			Log.e("huge json", mJSONArray.toString());
 		}
 		this.addAll(data);
 //		this.notifyDataSetChanged();
