@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="stories_dropdown">
+        <item>@string/dropdown_problems</item>
+        <item>@string/dropdown_solutions</item>
+        <item>@string/dropdown_projects</item>
+    </string-array>
+
+</resources>

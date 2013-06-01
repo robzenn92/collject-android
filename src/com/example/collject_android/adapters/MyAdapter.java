@@ -20,6 +20,7 @@ public class MyAdapter extends ArrayAdapter<Data> {
 	private ArrayList<Data> data;
     public static final int MAX_TAGS_LEN = 40;
 	
+    //TEST
 	public MyAdapter(Context context, int test) {
 		super(context, R.layout.my_list_item);
 		this.context = context;
