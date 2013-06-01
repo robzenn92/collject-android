@@ -1,13 +1,13 @@
 package com.example.collject_android.adapters;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
@@ -28,17 +28,26 @@ public class MyAdapter extends ArrayAdapter<Data> {
 	private Context context;
 	private ArrayList<Data> data;
 
+    public static final int MAX_TAGS_LEN = 40;
+	
 	public MyAdapter(Context context, int test) {
 		super(context, R.layout.my_list_item);
 		this.context = context;
 		if (test == 0) {
 			data = new ArrayList<Data>();
-			data.add(new Data("blek", "blek", null));
-			data.add(new Data("MOAR", "PIMP", null));
-			data.add(new Data("DALEKS", "EXTERMINATE", null));
-			data.add(new Data("NIGGA", "STOLE", null));
-			data.add(new Data("MY", "BIKE", null));
-			data.add(new Data("TOPO", "GIGIO", null));
+			ArrayList<String> tst = new ArrayList<String>(6);
+			tst.add("#bruciare");
+			tst.add("#alberi");
+			tst.add("#ios");
+			tst.add("#android");
+			tst.add("#javammerda");
+			tst.add("#daleks");
+			data.add(new Data("blek", tst, null));
+			data.add(new Data("MOAR", tst, null));
+			data.add(new Data("DALEKS", tst, null));
+			data.add(new Data("GINO", tst, null));
+			data.add(new Data("MY", tst, null));
+			data.add(new Data("TOPO", tst, null));
 		}
 		this.addAll(data);
 		this.notifyDataSetChanged();
@@ -79,8 +88,18 @@ public class MyAdapter extends ArrayAdapter<Data> {
 		mProfileImage.setImageBitmap(bitmap);
 		
 		mTitleTextView.setText(data.get(position).getTitle());
-		mTagsTextView.setText(data.get(position).getTags());
-
+		
+		Iterator<String> iter = data.get(position).getTags();
+		String tmp = "";
+		String asd;
+		
+		while (iter.hasNext()) {
+			asd = iter.next();
+			if ((tmp.length()+asd.length()+2)>=MAX_TAGS_LEN) break;
+			if (tmp.length()>0) tmp = tmp + ", " + asd;
+			else tmp = asd;
+		}
+		mTagsTextView.setText(tmp);
 		return rowView;
 	}
 
