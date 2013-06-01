@@ -54,6 +54,22 @@ public class MyAdapter extends ArrayAdapter<Data> {
 			data.add(new Data("MY", tst, null));
 			data.add(new Data("TOPO", tst, null));
 		}
+		if (test == 1) {
+			data = new ArrayList<Data>();
+			ArrayList<String> tst = new ArrayList<String>(6);
+			tst.add("#android");
+			tst.add("#javammerda");
+			tst.add("#daleks");
+			tst.add("#bruciare");
+			tst.add("#alberi");
+			tst.add("#ios");
+			data.add(new Data("blek", tst, null));
+			data.add(new Data("GINO", tst, null));
+			data.add(new Data("MY", tst, null));
+			data.add(new Data("TOPO", tst, null));
+			data.add(new Data("MOAR", tst, null));
+			data.add(new Data("DALEKS", tst, null));
+		}
 		this.addAll(data);
 //		this.notifyDataSetChanged();
 	}
@@ -109,11 +125,10 @@ public class MyAdapter extends ArrayAdapter<Data> {
 			
 			@Override
 			public void onClick(View v) {
-				FragmentTransaction ft = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
-				ListFragment lf = new ListFragment();
-				lf.setListAdapter(new MyAdapter(context, 0));
-				ft.replace(R.id.main_fragment, lf);
-				ft.commit();
+				FragmentManager fm = ((FragmentActivity) context).getSupportFragmentManager();
+				FragmentTransaction ft = fm.beginTransaction();
+				ListFragment lf = (ListFragment) fm.findFragmentById(R.id.main_fragment);
+				lf.setListAdapter(new MyAdapter(context, 1));
 			}
 		});
 		return rowView;

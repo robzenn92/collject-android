@@ -3,6 +3,7 @@ package com.example.collject_android;
 import java.util.ArrayList;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +19,9 @@ public class MyListFragment extends ListFragment {
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		// TODO Auto-generated method stub
 		super.onListItemClick(l, v, position, id);
+		FragmentActivity fa = this.getActivity();
+		
 	}
 
 	@Override
