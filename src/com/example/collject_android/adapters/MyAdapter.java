@@ -13,6 +13,10 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +55,7 @@ public class MyAdapter extends ArrayAdapter<Data> {
 			data.add(new Data("TOPO", tst, null));
 		}
 		this.addAll(data);
-		this.notifyDataSetChanged();
+//		this.notifyDataSetChanged();
 	}
 
 	public MyAdapter(Context context, Data[] data) {
@@ -101,6 +105,17 @@ public class MyAdapter extends ArrayAdapter<Data> {
 			else tmp = asd;
 		}
 		mTagsTextView.setText(tmp);
+		rowView.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				FragmentTransaction ft = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction();
+				ListFragment lf = new ListFragment();
+				lf.setListAdapter(new MyAdapter(context, 0));
+				ft.replace(R.id.main_fragment, lf);
+				ft.commit();
+			}
+		});
 		return rowView;
 	}
 
