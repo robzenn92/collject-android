@@ -137,47 +137,36 @@ public class DataAdapter extends BaseAdapter {
 
 	private Bitmap getRoundedCornerBitmap(Bitmap bitmap) {
 		Bitmap inpBitmap = bitmap;
-		int width = 0;
-		int height = 0;
-		width = inpBitmap.getWidth();
-		height = inpBitmap.getHeight();
+	    int width = 0;
+	    int height = 0;
+	    width = inpBitmap.getWidth();
+	    height = inpBitmap.getHeight();
 
-		if (width <= height) {
-			height = width;
-		} else {
-			width = height;
-		}
+	    if (width <= height) {
+	        height = width;
+	    } else {
+	        width = height;
+	    }
 
-		Bitmap output = Bitmap.createBitmap(width, height, Config.ARGB_8888);
-		Canvas canvas = new Canvas(output);
+	    Bitmap output = Bitmap.createBitmap(width, height, Config.ARGB_8888);
+	    Canvas canvas = new Canvas(output);
 
-		final Paint paint = new Paint();
-		final Rect rect = new Rect(0, 0, width, height);
-		RectF rectF = new RectF(rect);
+	    final Paint paint = new Paint();
+	    final Rect rect = new Rect(0, 0, width, height);
+	    RectF rectF = new RectF(rect);
+	    
+	    // Ritaglio immagine
+	    float roundPx = width / 2;
+	    int color = 0xff424242;
+	    paint.setAntiAlias(true);
+	    canvas.drawARGB(0, 0, 0, 0);
+	    paint.setColor(color);
+	    canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+	    
+	    paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+	    canvas.drawBitmap(inpBitmap, rect, rect, paint);
 
-		// Ritaglio
-		float roundPx = width / 2;
-		int color = 0xff424242;
-		paint.setAntiAlias(true);
-		canvas.drawARGB(0, 0, 0, 0);
-		paint.setColor(color);
-		canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-
-		paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
-		canvas.drawBitmap(inpBitmap, rect, rect, paint);
-
-		// Bordino
-		// roundPx = width / 2 + 1;
-		// color = 0xff56710;
-		// paint.setAntiAlias(true);
-		// canvas.drawARGB(0, 0, 0, 0);
-		// paint.setColor(color);
-		// canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-		//
-		// paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
-		// canvas.drawBitmap(inpBitmap, rect, rect, paint);
-
-		return output;
+	    return output;
 	}
 
 }

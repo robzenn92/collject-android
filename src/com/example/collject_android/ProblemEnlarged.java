@@ -50,5 +50,4 @@ public class ProblemEnlarged extends Activity implements OnGet {
 		}
 		setProgressBarVisibility(false);
 	}
-
 }
