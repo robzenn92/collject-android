@@ -11,6 +11,7 @@ public class Data {
 	String title;
 	ArrayList<String> tags;
     Bitmap image;
+    User user;
 	
 	public Data() {
 		title = "";
@@ -61,5 +62,17 @@ public class Data {
 
 	public void setImage(Bitmap image) {
 		this.image = image;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public void setTags(ArrayList<String> tags) {
+		this.tags = tags;
 	}
 }

@@ -1,20 +1,13 @@
 package com.example.collject_android.adapters;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +15,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.collject_android.MainActivity;
 import com.example.collject_android.ProblemEnlarged;
 import com.example.collject_android.R;
 import com.example.collject_android.utils.Data;
 import com.example.collject_android.utils.Helper;
-import com.example.collject_android.utils.PostAsyncTask;
 import com.example.collject_android.utils.utils;
 
 public class DataAdapter extends BaseAdapter {
@@ -39,28 +32,28 @@ public class DataAdapter extends BaseAdapter {
 		this.data = datas;
 		this.ctx = ctx;
 
-		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(1);
-
-		String[] str = { "#android"};
-		JSONArray jarr = new JSONArray(Arrays.asList(str));
-		NameValuePair nvp = new BasicNameValuePair("skill", jarr.toString());
-		params.add(nvp);
-
-		String link = Helper
-				.projectSearchRequestBuilder(Helper.SearchType.Skill);
-
-		PostAsyncTask pat = new PostAsyncTask(params,
-				new PostAsyncTask.OnPost() {
-
-					@Override
-					public void OnPostFinished(JSONObject json) {
-						if (json != null)
-							Log.e("huge json", json.toString());
-						else
-							Log.e("huge json", "null");
-					}
-				});
-		pat.execute(link);
+//		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(1);
+//
+//		String[] str = { "#android"};
+//		JSONArray jarr = new JSONArray(Arrays.asList(str));
+//		NameValuePair nvp = new BasicNameValuePair("skill", jarr.toString());
+//		params.add(nvp);
+//
+//		String link = Helper
+//				.projectSearchRequestBuilder(Helper.SearchType.Skill);
+//
+//		PostAsyncTask pat = new PostAsyncTask(params,
+//				new PostAsyncTask.OnPost() {
+//
+//					@Override
+//					public void OnPostFinished(JSONObject json) {
+//						if (json != null)
+//							Log.e("huge json", json.toString());
+//						else
+//							Log.e("huge json", "null");
+//					}
+//				});
+//		pat.execute(link);
 
 	}
 
@@ -104,6 +97,7 @@ public class DataAdapter extends BaseAdapter {
 		Iterator<String> iter = data.get(position).getTags();
 		String tmp = "";
 		String asd;
+		final int posi = position;
 
 		while (iter.hasNext()) {
 			asd = iter.next();
@@ -119,8 +113,12 @@ public class DataAdapter extends BaseAdapter {
 
 			@Override
 			public void onClick(View v) {
+				Helper.StuffType pos = ((MainActivity) ctx).getPosition();
+				ArrayList<Data> datas = ((MainActivity) ctx).getDatas();
 				Intent i = new Intent(ctx, ProblemEnlarged.class);
 				i.putExtra(ProblemEnlarged.ID_PASSED_KEY, v.getId());
+				i.putExtra("position", pos);
+				i.putExtra("username", datas.get(posi).getUser().getName());
 				ctx.startActivity(i);
 			}
 		});

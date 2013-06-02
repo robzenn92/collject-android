@@ -22,14 +22,17 @@ import com.example.collject_android.utils.Data;
 import com.example.collject_android.utils.GetAsyncTask;
 import com.example.collject_android.utils.GetAsyncTask.OnGet;
 import com.example.collject_android.utils.Helper;
+import com.example.collject_android.utils.Helper.StuffType;
+import com.example.collject_android.utils.User;
 
 public class MainActivity extends FragmentActivity implements
 		ActionBar.OnNavigationListener, OnGet {
 
 	private ActionBar mActionBar;
 	private DataAdapter mListAdapter;
-	private List<Data> datas;
+	private ArrayList<Data> datas;
 	private GetAsyncTask active;
+	Helper.StuffType pos;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,10 @@ public class MainActivity extends FragmentActivity implements
 		return true;
 	}
 
+	public ArrayList<Data> getDatas() {
+		return datas;
+	}
+
 	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
 		if (active != null)
@@ -74,20 +81,27 @@ public class MainActivity extends FragmentActivity implements
 		case 0: {
 			active.execute(Helper.serverGetRequestBuilder(
 					Helper.StuffType.Problem, Helper.InfoType.List, null));
+			pos = Helper.StuffType.Problem;
 			break;
 		}
 		case 1: {
 			active.execute(Helper.serverGetRequestBuilder(
 					Helper.StuffType.Solution, Helper.InfoType.List, null));
+			pos = Helper.StuffType.Solution;
 			break;
 		}
 		case 2: {
 			active.execute(Helper.serverGetRequestBuilder(
 					Helper.StuffType.Project, Helper.InfoType.List, null));
+			pos = Helper.StuffType.Project;
 			break;
 		}
 		}
 		return true;
+	}
+
+	public Helper.StuffType getPosition() {
+		return pos;
 	}
 
 	@Override
@@ -121,6 +135,26 @@ public class MainActivity extends FragmentActivity implements
 					try {
 						d.setId(params[0].getInt("id"));
 						d.setTitle(params[0].getString("title"));
+						JSONObject tmpJson;
+						String tmp = "";
+						if (pos == StuffType.Problem) {
+							tmp = params[0].getString("owner");
+						} else if (pos == StuffType.Project) {
+							tmp = params[0].getString("user");
+						}
+						tmpJson = new JSONObject(tmp);
+						JSONArray jarr = new JSONArray(
+								tmpJson.getString("skills"));
+						int len = jarr.length();
+						String[] skill = new String[len];
+						for (int i = 0; i < len; i++) {
+							skill[i] = jarr.getString(i);
+						}
+						User nw = new User(Integer.parseInt(tmpJson
+								.getString("id")), tmpJson.getString("img"),
+								tmpJson.getString("username"),
+								tmpJson.getString("email"), skill);
+						d.setUser(nw);
 						datas.add(d);
 						mListAdapter.notifyDataSetChanged();
 					} catch (JSONException e) {
