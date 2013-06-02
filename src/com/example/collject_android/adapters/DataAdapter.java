@@ -1,12 +1,20 @@
 package com.example.collject_android.adapters;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +25,43 @@ import android.widget.TextView;
 import com.example.collject_android.ProblemEnlarged;
 import com.example.collject_android.R;
 import com.example.collject_android.utils.Data;
+import com.example.collject_android.utils.Helper;
+import com.example.collject_android.utils.PostAsyncTask;
 import com.example.collject_android.utils.utils;
 
 public class DataAdapter extends BaseAdapter {
 	private List<Data> data;
 	private Context ctx;
-	
+
 	public static final int MAX_TAGS_LEN = 40;
-	
+
 	public DataAdapter(Context ctx, List<Data> datas) {
-		this.data=datas;
-		this.ctx=ctx;
+		this.data = datas;
+		this.ctx = ctx;
+
+		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(1);
+
+		String[] str = { "#android"};
+		JSONArray jarr = new JSONArray(Arrays.asList(str));
+		NameValuePair nvp = new BasicNameValuePair("skill", jarr.toString());
+		params.add(nvp);
+
+		String link = Helper
+				.projectSearchRequestBuilder(Helper.SearchType.Skill);
+
+		PostAsyncTask pat = new PostAsyncTask(params,
+				new PostAsyncTask.OnPost() {
+
+					@Override
+					public void OnPostFinished(JSONObject json) {
+						if (json != null)
+							Log.e("huge json", json.toString());
+						else
+							Log.e("huge json", "null");
+					}
+				});
+		pat.execute(link);
+
 	}
 
 	@Override
@@ -47,9 +81,10 @@ public class DataAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View rowView, ViewGroup parent) {
-		if(rowView==null){
-			LayoutInflater li = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			rowView=li.inflate(R.layout.my_list_item,parent,false);
+		if (rowView == null) {
+			LayoutInflater li = (LayoutInflater) ctx
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			rowView = li.inflate(R.layout.my_list_item, parent, false);
 		}
 		rowView.setId(data.get(position).getId());
 		TextView mTitleTextView = (TextView) rowView
@@ -63,22 +98,25 @@ public class DataAdapter extends BaseAdapter {
 		Bitmap bitmap = BitmapFactory.decodeResource(ctx.getResources(),R.drawable.medium);
 		mProfileImage.setImageBitmap(utils.getRoundedCornerBitmap(bitmap));
 		mProfileImage.setBackgroundResource(R.drawable.round_img_proj);
-		
+
 		mTitleTextView.setText(data.get(position).getTitle());
-		
+
 		Iterator<String> iter = data.get(position).getTags();
 		String tmp = "";
 		String asd;
-		
+
 		while (iter.hasNext()) {
 			asd = iter.next();
-			if ((tmp.length()+asd.length()+2)>=MAX_TAGS_LEN) break;
-			if (tmp.length()>0) tmp = tmp + ", " + asd;
-			else tmp = asd;
+			if ((tmp.length() + asd.length() + 2) >= MAX_TAGS_LEN)
+				break;
+			if (tmp.length() > 0)
+				tmp = tmp + ", " + asd;
+			else
+				tmp = asd;
 		}
 		mTagsTextView.setText(tmp);
 		rowView.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(ctx, ProblemEnlarged.class);
