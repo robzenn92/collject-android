@@ -157,6 +157,7 @@ public class MainActivity extends FragmentActivity implements
 								tmpJson.getString("username"),
 								tmpJson.getString("email"), skill);
 						d.setUser(nw);
+						Log.e("jsongay", d.getUser().getName());
 						datas.add(d);
 						mListAdapter.notifyDataSetChanged();
 					} catch (JSONException e) {

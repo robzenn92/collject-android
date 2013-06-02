@@ -68,7 +68,7 @@ public class ProblemEnlarged extends Activity implements OnGet {
 		mSolution = (TextView) findViewById(R.id.enlarged_solution);
 		mUser = (TextView) findViewById(R.id.enlarged_user);
 		mUser.setText(username);
-		Log.e("pimp username", username);
+		//Log.e("pimp username", username);
 	}
 	
 	@Override

@@ -14,6 +14,7 @@ public class User {
 		this.id = id;
 		this.img = img;
 		this.mail = mail;
+		this.name = name;
 		this.skill = new ArrayList<String>();
 		for (int i = 0; i < skill.length; i++) {
 			this.skill.add(skill[i]);
