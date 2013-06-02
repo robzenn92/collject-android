@@ -35,7 +35,7 @@
             android:textSize="60dp" />
     </LinearLayout>
 
-    <TextView
+    <Button
         android:id="@+id/enlarged_solution"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

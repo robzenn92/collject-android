@@ -1,18 +1,18 @@
 package com.example.collject_android;
 
-import java.util.ArrayList;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Base64;
-import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,7 +22,6 @@ import com.example.collject_android.utils.GetAsyncTask.OnGet;
 import com.example.collject_android.utils.Helper;
 import com.example.collject_android.utils.Helper.InfoType;
 import com.example.collject_android.utils.Helper.StuffType;
-import com.example.collject_android.utils.User;
 import com.example.collject_android.utils.utils;
 
 public class ProblemEnlarged extends Activity implements OnGet {
@@ -79,6 +78,16 @@ public class ProblemEnlarged extends Activity implements OnGet {
 			mSolution = (TextView) findViewById(R.id.enlarged_solution);
 			mUser = (TextView) findViewById(R.id.enlarged_user);
 			mUser.setText(username);
+			
+			mSolution.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					new GetAsyncTask(ProblemEnlarged.this).execute(Helper
+							.serverGetRequestBuilder(pos, InfoType.Solution, getIntent()
+									.getExtras().getInt(ID_PASSED_KEY)));
+				}
+			});
 			
 			mTags = (TextView) findViewById(R.id.enlarged_tags);
 			mTags.setText(tags);

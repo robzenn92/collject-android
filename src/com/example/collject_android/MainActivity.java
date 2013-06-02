@@ -126,7 +126,6 @@ public class MainActivity extends FragmentActivity implements
 						} catch (JSONException e) {
 							Log.e(getClass().getCanonicalName(), e.toString());
 						}
-
 					}
 					return null;
 				}
