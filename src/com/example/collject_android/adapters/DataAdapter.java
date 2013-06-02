@@ -58,6 +58,7 @@ public class DataAdapter extends BaseAdapter {
 			LayoutInflater li = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			rowView=li.inflate(R.layout.my_list_item,parent,false);
 		}
+		rowView.setId(data.get(position).getId());
 		TextView mTitleTextView = (TextView) rowView
 				.findViewById(R.id.prog_name);
 		TextView mTagsTextView = (TextView) rowView
@@ -89,6 +90,7 @@ public class DataAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(ctx, ProblemEnlarged.class);
+				i.putExtra(ProblemEnlarged.ID_PASSED_KEY, v.getId());
 				ctx.startActivity(i);
 			}
 		});

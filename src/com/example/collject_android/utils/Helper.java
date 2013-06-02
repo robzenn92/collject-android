@@ -33,11 +33,11 @@ public class Helper {
 			case List:
 				return SERVER_URL + PROBLEM_URL + LIST_URL;
 			case General:
-				return SERVER_URL + PROBLEM_URL + info + GENERAL_URL;
+				return SERVER_URL + PROBLEM_URL + info + "/" + GENERAL_URL;
 			case Solution:
-				return SERVER_URL + PROBLEM_URL + info + SOLUTION_URL;
+				return SERVER_URL + PROBLEM_URL + info + "/" + SOLUTION_URL;
 			case Follower:
-				return SERVER_URL + PROBLEM_URL + info + FOLLOWER_URL;
+				return SERVER_URL + PROBLEM_URL + info + "/" + FOLLOWER_URL;
 			default:
 				break;
 			}
@@ -46,12 +46,12 @@ public class Helper {
 			case List:
 				return SERVER_URL + SOLUTION_URL + LIST_URL;
 			case General:
-				return SERVER_URL + SOLUTION_URL + info + GENERAL_URL;
+				return SERVER_URL + SOLUTION_URL + info + "/" + GENERAL_URL;
 			case Solution:
 				throw new IllegalStateException(
 						"You can't request a solution for a solution.");
 			case Follower:
-				return SERVER_URL + SOLUTION_URL + info + FOLLOWER_URL;
+				return SERVER_URL + SOLUTION_URL + info + "/" + FOLLOWER_URL;
 			default:
 				break;
 
@@ -61,11 +61,11 @@ public class Helper {
 			case List:
 				return SERVER_URL + PROJECT_URL + LIST_URL;
 			case General:
-				return SERVER_URL + PROJECT_URL + info + GENERAL_URL;
+				return SERVER_URL + PROJECT_URL + info + "/" + GENERAL_URL;
 			case Solution:
 				throw new IllegalStateException("A project is a solution");
 			case Follower:
-				return SERVER_URL + PROJECT_URL + info + FOLLOWER_URL;
+				return SERVER_URL + PROJECT_URL + info + "/" + FOLLOWER_URL;
 			default:
 				break;
 			}

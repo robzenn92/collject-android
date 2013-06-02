@@ -7,6 +7,7 @@ import java.util.Iterator;
 import android.graphics.Bitmap;
 
 public class Data {
+	Integer id;
 	String title;
 	ArrayList<String> tags;
     Bitmap image;
@@ -15,11 +16,26 @@ public class Data {
 		title = "";
 		this.tags = new ArrayList<String>();
 	}
+	
+	public Data( int id, String title) {
+		this.id=id;
+		this.title = title;
+		this.tags = new ArrayList<String>();
+	}
 
 	public Data(String title, Collection<String> desc, Bitmap image) {
 		this.title = title;
 		this.tags = new ArrayList<String>();
 		this.tags.addAll(desc);
+	}
+	
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getTitle() {

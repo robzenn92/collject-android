@@ -122,6 +122,7 @@ public class MainActivity extends FragmentActivity implements
 				protected void onProgressUpdate(JSONObject... params) {
 					Data d = new Data();
 					try {
+						d.setId(params[0].getInt("id"));
 						d.setTitle(params[0].getString("title"));
 						datas.add(d);
 						mListAdapter.notifyDataSetChanged();
