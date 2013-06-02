@@ -51,6 +51,7 @@
         android:layout_width="fill_parent"
         android:layout_height="2dp"
         android:layout_below="@+id/pd"
+        android:padding="5dp"
         android:background="@drawable/shadow" />
     <!-- Solutions -->
 
@@ -66,11 +67,5 @@
             android:textSize="18dp" >
         </TextView>
     </RelativeLayout>
-    
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:layout_below="@+id/lol"
-        android:background="@drawable/shadow" />
 
 </RelativeLayout>
