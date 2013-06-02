@@ -11,8 +11,6 @@ import android.app.ActionBar;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.Menu;
@@ -20,7 +18,6 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 
 import com.example.collject_android.adapters.DataAdapter;
-import com.example.collject_android.adapters.MyAdapter;
 import com.example.collject_android.utils.Data;
 import com.example.collject_android.utils.GetAsyncTask;
 import com.example.collject_android.utils.GetAsyncTask.OnGet;

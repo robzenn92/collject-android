@@ -4,7 +4,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.content.pm.FeatureInfo;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.TextView;
