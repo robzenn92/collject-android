@@ -18,6 +18,7 @@ public class ProblemEnlarged extends Activity implements OnGet {
 	public static final String ID_PASSED_KEY = "id";
 	
 	private TextView mTitle;
+	private TextView mProblemDescription;
 	
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -29,6 +30,7 @@ public class ProblemEnlarged extends Activity implements OnGet {
 				Helper.StuffType.Problem, InfoType.General, getIntent()
 						.getExtras().getInt(ID_PASSED_KEY)));
 		mTitle = (TextView) findViewById(R.id.enlarged_title);
+		mProblemDescription = (TextView) findViewById(R.id.enlarged_description);
 	}
 	
 	@Override
@@ -41,7 +43,7 @@ public class ProblemEnlarged extends Activity implements OnGet {
 		try {
 			JSONObject obj = new JSONObject(json);
 			mTitle.setText(obj.getString("title"));
-			
+			mProblemDescription.setText(obj.getString("description"));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

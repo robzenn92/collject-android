@@ -20,9 +20,15 @@ import android.util.Log;
 public class PostAsyncTask extends AsyncTask<String, Void, JSONObject> {
 
 	private ArrayList<NameValuePair> params;
+	private OnPost listener;
 
-	public PostAsyncTask(ArrayList<NameValuePair> params) {
+	public interface OnPost {
+		public void OnPostFinished(JSONObject json);
+	}
+
+	public PostAsyncTask(ArrayList<NameValuePair> params, OnPost listener) {
 		super();
+		this.listener = listener;
 		this.params = params;
 	}
 
@@ -34,14 +40,19 @@ public class PostAsyncTask extends AsyncTask<String, Void, JSONObject> {
 			post.setEntity(new UrlEncodedFormEntity(params));
 			if (!isCancelled()) {
 				HttpResponse resp = client.execute(post);
-				if(!isCancelled())
-					return new JSONObject(EntityUtils.toString(resp.getEntity()));
+				return new JSONObject(EntityUtils.toString(resp.getEntity()));
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			Log.e(getClass().getCanonicalName(), e.toString());
 		}
 		return null;
+	}
+
+	@Override
+	protected void onPostExecute(JSONObject result) {
+		super.onPostExecute(result);
+		listener.OnPostFinished(result);
 	}
 
 }

@@ -20,7 +20,7 @@
             android:padding="5dp" >
 
             <ImageView
-                android:id="@+id/imageView1"
+                android:id="@+id/enlarged_profile_image_prob"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
@@ -142,7 +142,7 @@
                 android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/enlarged_title"
+                    android:id="@+id/enlarged_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Problem"
