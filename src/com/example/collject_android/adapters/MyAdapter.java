@@ -156,7 +156,7 @@ public class MyAdapter extends ArrayAdapter<Data> {
 	    final Rect rect = new Rect(0, 0, width, height);
 	    RectF rectF = new RectF(rect);
 	    
-	    // Ritaglio
+	    // Ritaglio immagine
 	    float roundPx = width / 2;
 	    int color = 0xff424242;
 	    paint.setAntiAlias(true);
@@ -166,17 +166,6 @@ public class MyAdapter extends ArrayAdapter<Data> {
 	    
 	    paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
 	    canvas.drawBitmap(inpBitmap, rect, rect, paint);
-	    
-	    // Bordino
-//	    roundPx = width / 2 + 1;
-//	    color = 0xff56710;
-//	    paint.setAntiAlias(true);
-//	    canvas.drawARGB(0, 0, 0, 0);
-//	    paint.setColor(color);
-//	    canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-//
-//	    paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
-//	    canvas.drawBitmap(inpBitmap, rect, rect, paint);
 
 	    return output;
 	}

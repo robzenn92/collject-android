@@ -15,8 +15,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.example.collject_android.MainActivity"
-            android:label="@string/app_name" >
-            
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,7 +25,12 @@
         
         <activity
             android:name="com.example.collject_android.ProblemEnlarged"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+           	android:parentActivityName="com.example.collject.android.MainActivity" >
+	        <!-- The meta-data element is needed for versions lower than 4.1 -->
+	        <meta-data
+	            android:name="android.support.PARENT_ACTIVITY"
+	            android:value="com.example.collject.android.MainActivity" />
         </activity>
     </application>
 

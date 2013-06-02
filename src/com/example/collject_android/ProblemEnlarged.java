@@ -1,19 +1,22 @@
 package com.example.collject_android;
 
-import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-public class ProblemEnlarged extends Activity {
+public class ProblemEnlarged extends Fragment {
 
+	public static ProblemEnlarged newInstance() {
+		ProblemEnlarged f = new ProblemEnlarged();
+        return f;
+    }
+	
 	@Override
-	protected void onCreate(Bundle arg0) {
-		super.onCreate(arg0);
-		this.setContentView(R.layout.fragment_problem_enlarged);
-	}
-
-	@Override
-	protected void onStart() {
-		super.onStart();
-	}
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_problem_enlarged, container, false);
+        return v;
+    }
 }
