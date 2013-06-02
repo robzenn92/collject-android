@@ -145,6 +145,7 @@ public class MainActivity extends FragmentActivity implements
 						String tmp = "";
 						if (pos == StuffType.Problem) {
 							tmp = params[0].getString("owner");
+							d.addTags(params[0].getString("hashtag").replace(",", " "));
 						} else if (pos == StuffType.Project || pos == StuffType.Solution) {
 							tmp = params[0].getString("user");
 						}

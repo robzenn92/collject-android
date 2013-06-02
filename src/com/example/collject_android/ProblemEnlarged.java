@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Window;
 import android.widget.ImageView;
@@ -35,6 +36,7 @@ public class ProblemEnlarged extends Activity implements OnGet {
 	private TextView mLocation;
 	private TextView mSolution;
 	private TextView mUser;
+	private TextView mTags;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -43,6 +45,8 @@ public class ProblemEnlarged extends Activity implements OnGet {
 		setProgressBarIndeterminateVisibility(true);
 		pos = (Helper.StuffType) getIntent().getExtras().get("position");
 		String username = (String) getIntent().getExtras().get("username");
+		String img = (String) getIntent().getExtras().get("image");
+		String tags = (String) getIntent().getExtras().get("tags");
 		new GetAsyncTask(this).execute(Helper
 				.serverGetRequestBuilder(pos, InfoType.General, getIntent()
 						.getExtras().getInt(ID_PASSED_KEY)));
@@ -52,12 +56,6 @@ public class ProblemEnlarged extends Activity implements OnGet {
 
 			mTitle = (TextView) findViewById(R.id.enlarged_title);
 			mImageUser = (ImageView) findViewById(R.id.problem_user_image);
-
-			// HOTFIX
-			Bitmap bitmap = BitmapFactory.decodeResource(
-					getApplicationContext().getResources(), R.drawable.medium);
-			mImageUser.setImageBitmap(utils.getRoundedCornerBitmap(bitmap));
-			mImageUser.setBackgroundResource(R.drawable.round_img_proj);
 
 			mProblemDescription = (TextView) findViewById(R.id.solution_description);
 
@@ -75,19 +73,28 @@ public class ProblemEnlarged extends Activity implements OnGet {
 			mTitle = (TextView) findViewById(R.id.enlarged_title);
 			mImageUser = (ImageView) findViewById(R.id.prog_user_image);
 
-			// HOTFIX
-			Bitmap bitmap = BitmapFactory.decodeResource(
-					getApplicationContext().getResources(), R.drawable.medium);
-			mImageUser.setImageBitmap(utils.getRoundedCornerBitmap(bitmap));
-			mImageUser.setBackgroundResource(R.drawable.round_img_proj);
-
 			mTitle = (TextView) findViewById(R.id.enlarged_title);
 			mProblemDescription = (TextView) findViewById(R.id.enlarged_description);
 			mLocation = (TextView) findViewById(R.id.enlarged_location);
 			mSolution = (TextView) findViewById(R.id.enlarged_solution);
 			mUser = (TextView) findViewById(R.id.enlarged_user);
 			mUser.setText(username);
+			
+			mTags = (TextView) findViewById(R.id.enlarged_tags);
+			mTags.setText(tags);
 		}
+
+		Bitmap bitmap;
+		if (img != null && !img.equals("")) {
+			byte[] ds = Base64.decode(img.substring(img.indexOf("base64,")+7), Base64.DEFAULT);
+			bitmap = BitmapFactory.decodeByteArray(ds, 0, ds.length);
+		} else {
+			bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.medium);
+		}
+		mImageUser.setImageBitmap(utils.getRoundedCornerBitmap(bitmap));
+		mImageUser.setBackgroundResource(R.drawable.round_img_proj);
+		mImageUser.setAdjustViewBounds(true);
+
 	}
 
 	@Override

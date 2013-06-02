@@ -9,26 +9,21 @@ import android.graphics.Bitmap;
 public class Data {
 	Integer id;
 	String title;
-	ArrayList<String> tags;
+	String tags;
     Bitmap image;
     User user;
 	
 	public Data() {
 		title = "";
-		this.tags = new ArrayList<String>();
+		this.tags = "";
 	}
 	
 	public Data( int id, String title) {
 		this.id=id;
 		this.title = title;
-		this.tags = new ArrayList<String>();
+		this.tags = "";
 	}
 
-	public Data(String title, Collection<String> desc, Bitmap image) {
-		this.title = title;
-		this.tags = new ArrayList<String>();
-		this.tags.addAll(desc);
-	}
 	
 
 	public Integer getId() {
@@ -47,14 +42,11 @@ public class Data {
 		this.title = title;
 	}
 
-	public Iterator<String> getTags() {
-		return tags.listIterator();
+	
+	public String getTags(){
+		return tags;
 	}
 
-	public void setTags(Collection<String> tags) {
-		this.tags.clear();
-		this.tags.addAll(tags);
-	}
 
 	public Bitmap getImage() {
 		return image;
@@ -72,7 +64,7 @@ public class Data {
 		this.user = user;
 	}
 
-	public void setTags(ArrayList<String> tags) {
-		this.tags = tags;
+	public void addTags(String tags) {
+		this.tags +=tags+" ";
 	}
 }

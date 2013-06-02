@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +24,12 @@ import com.example.collject_android.utils.Helper;
 import com.example.collject_android.utils.utils;
 
 public class DataAdapter extends BaseAdapter {
-	private List<Data> data;
+	private ArrayList<Data> data;
 	private Context ctx;
 
 	public static final int MAX_TAGS_LEN = 40;
 
-	public DataAdapter(Context ctx, List<Data> datas) {
+	public DataAdapter(Context ctx, ArrayList<Data> datas) {
 		this.data = datas;
 		this.ctx = ctx;
 
@@ -88,27 +89,24 @@ public class DataAdapter extends BaseAdapter {
 				.findViewById(R.id.prog_profile_image);
 
 		// HOTFIX
-		Bitmap bitmap = BitmapFactory.decodeResource(ctx.getResources(),R.drawable.medium);
-		mProfileImage.setImageBitmap(utils.getRoundedCornerBitmap(bitmap));
+		Bitmap bitmap;
+		String img = data.get(position).getUser().getImg();
+		mTagsTextView.setText(data.get(position).getTags());
+		if (img != null && !img.equals("")) {
+			byte[] ds = Base64.decode(img.substring(img.indexOf("base64,")+7), Base64.DEFAULT);
+			bitmap = BitmapFactory.decodeByteArray(ds, 0, ds.length);
+		} else {
+			bitmap = BitmapFactory.decodeResource(ctx.getResources(), R.drawable.medium);
+		}
 		mProfileImage.setBackgroundResource(R.drawable.round_img_proj);
+		mProfileImage.setImageBitmap(utils.getRoundedCornerBitmap(bitmap));
+		mProfileImage.setAdjustViewBounds(true);
 
 		mTitleTextView.setText(data.get(position).getTitle());
 
-		Iterator<String> iter = data.get(position).getTags();
-		String tmp = "";
 		String asd;
 		final int posi = position;
 
-		while (iter.hasNext()) {
-			asd = iter.next();
-			if ((tmp.length() + asd.length() + 2) >= MAX_TAGS_LEN)
-				break;
-			if (tmp.length() > 0)
-				tmp = tmp + ", " + asd;
-			else
-				tmp = asd;
-		}
-		mTagsTextView.setText(tmp);
 		rowView.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -119,6 +117,8 @@ public class DataAdapter extends BaseAdapter {
 				i.putExtra(ProblemEnlarged.ID_PASSED_KEY, v.getId());
 				i.putExtra("position", pos);
 				i.putExtra("username", datas.get(posi).getUser().getName());
+				i.putExtra("image", datas.get(posi).getUser().getImg());
+				i.putExtra("tags", data.get(posi).getTags());
 				ctx.startActivity(i);
 			}
 		});
