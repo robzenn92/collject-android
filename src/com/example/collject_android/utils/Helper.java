@@ -3,7 +3,7 @@ package com.example.collject_android.utils;
 
 public class Helper {
 
-	private static final String SERVER_URL = "http://23.21.187.163/";
+	private static final String SERVER_URL = "http://23.21.187.163/api/";
 	private static final String PROBLEM_URL = "problem/";
 	private static final String PROJECT_URL = "project/";
 	private static final String SOLUTION_URL = "solution/";
@@ -26,7 +26,7 @@ public class Helper {
 	}
 
 	public static String serverGetRequestBuilder(StuffType st, InfoType it,
-			int info) {
+			Integer info) {
 		switch (st) {
 		case Problem:
 			switch (it) {

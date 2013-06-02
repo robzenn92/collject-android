@@ -18,7 +18,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 public class PostAsyncTask extends AsyncTask<String, Void, JSONObject> {
-	
+
 	private ArrayList<NameValuePair> params;
 
 	public PostAsyncTask(ArrayList<NameValuePair> params) {
@@ -32,8 +32,11 @@ public class PostAsyncTask extends AsyncTask<String, Void, JSONObject> {
 		HttpPost post = new HttpPost(arg0[0]);
 		try {
 			post.setEntity(new UrlEncodedFormEntity(params));
-			HttpResponse resp=client.execute(post);
-			return new JSONObject(EntityUtils.toString(resp.getEntity()));
+			if (!isCancelled()) {
+				HttpResponse resp = client.execute(post);
+				if(!isCancelled())
+					return new JSONObject(EntityUtils.toString(resp.getEntity()));
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			Log.e(getClass().getCanonicalName(), e.toString());

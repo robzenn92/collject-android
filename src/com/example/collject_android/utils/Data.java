@@ -13,7 +13,7 @@ public class Data {
 	
 	public Data() {
 		title = "";
-		tags = null;
+		this.tags = new ArrayList<String>();
 	}
 
 	public Data(String title, Collection<String> desc, Bitmap image) {
