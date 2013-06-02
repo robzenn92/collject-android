@@ -35,42 +35,61 @@ public class ProblemEnlarged extends Activity implements OnGet {
 	private TextView mLocation;
 	private TextView mSolution;
 	private TextView mUser;
-	
+
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-		this.setContentView(R.layout.fragment_problem_enlarged);
 		setProgressBarIndeterminateVisibility(true);
 		pos = (Helper.StuffType) getIntent().getExtras().get("position");
 		String username = (String) getIntent().getExtras().get("username");
-		new GetAsyncTask(this).execute(Helper.serverGetRequestBuilder(
-				pos, InfoType.General, getIntent()
+		new GetAsyncTask(this).execute(Helper
+				.serverGetRequestBuilder(pos, InfoType.General, getIntent()
 						.getExtras().getInt(ID_PASSED_KEY)));
 
-		mTitleIcon = (TextView) findViewById(R.id.enlarged_title_icon);
-		Typeface font = Typeface.createFromAsset(getAssets(), "Entypo.ttf");
-	    mTitleIcon.setTypeface(font);
-	    mTitleIcon.setText(Html.fromHtml("&#128640;"));
-		
-	    mTitle = (TextView) findViewById(R.id.enlarged_title);
-		mImageUser = (ImageView) findViewById(R.id.prog_user_image);
-		
-		// HOTFIX
-		Bitmap bitmap = BitmapFactory.decodeResource(getApplicationContext().getResources(),R.drawable.medium);
-		mImageUser.setImageBitmap(utils.getRoundedCornerBitmap(bitmap));
-		mImageUser.setBackgroundResource(R.drawable.round_img_proj);
+		if (pos == StuffType.Solution) {
+			this.setContentView(R.layout.activity_solution);
 
-		
-		mTitle = (TextView) findViewById(R.id.enlarged_title);
-		mProblemDescription = (TextView) findViewById(R.id.enlarged_description);
-		mLocation = (TextView) findViewById(R.id.enlarged_location);
-		mSolution = (TextView) findViewById(R.id.enlarged_solution);
-		mUser = (TextView) findViewById(R.id.enlarged_user);
-		mUser.setText(username);
-		//Log.e("pimp username", username);
+			mTitle = (TextView) findViewById(R.id.enlarged_title);
+			mImageUser = (ImageView) findViewById(R.id.problem_user_image);
+
+			// HOTFIX
+			Bitmap bitmap = BitmapFactory.decodeResource(
+					getApplicationContext().getResources(), R.drawable.medium);
+			mImageUser.setImageBitmap(utils.getRoundedCornerBitmap(bitmap));
+			mImageUser.setBackgroundResource(R.drawable.round_img_proj);
+
+			mProblemDescription = (TextView) findViewById(R.id.solution_description);
+
+			mUser = (TextView) findViewById(R.id.problem_user);
+			mUser.setText(username);
+
+		} else {
+			this.setContentView(R.layout.fragment_problem_enlarged);
+
+			mTitleIcon = (TextView) findViewById(R.id.enlarged_title_icon);
+			Typeface font = Typeface.createFromAsset(getAssets(), "Entypo.ttf");
+			mTitleIcon.setTypeface(font);
+			mTitleIcon.setText(Html.fromHtml("&#128640;"));
+
+			mTitle = (TextView) findViewById(R.id.enlarged_title);
+			mImageUser = (ImageView) findViewById(R.id.prog_user_image);
+
+			// HOTFIX
+			Bitmap bitmap = BitmapFactory.decodeResource(
+					getApplicationContext().getResources(), R.drawable.medium);
+			mImageUser.setImageBitmap(utils.getRoundedCornerBitmap(bitmap));
+			mImageUser.setBackgroundResource(R.drawable.round_img_proj);
+
+			mTitle = (TextView) findViewById(R.id.enlarged_title);
+			mProblemDescription = (TextView) findViewById(R.id.enlarged_description);
+			mLocation = (TextView) findViewById(R.id.enlarged_location);
+			mSolution = (TextView) findViewById(R.id.enlarged_solution);
+			mUser = (TextView) findViewById(R.id.enlarged_user);
+			mUser.setText(username);
+		}
 	}
-	
+
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -80,9 +99,11 @@ public class ProblemEnlarged extends Activity implements OnGet {
 	public void OnGetFinished(String json) {
 		try {
 			JSONObject obj = new JSONObject(json);
-			mTitle.setText(obj.getString("title"));
+			if (pos != StuffType.Solution) {
+				mTitle.setText(obj.getString("title"));
+				mLocation.setText(obj.getString("city"));
+			}
 			mProblemDescription.setText(obj.getString("description"));
-			mLocation.setText(obj.getString("city"));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

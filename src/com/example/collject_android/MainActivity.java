@@ -136,12 +136,16 @@ public class MainActivity extends FragmentActivity implements
 					Data d = new Data();
 					try {
 						d.setId(params[0].getInt("id"));
-						d.setTitle(params[0].getString("title"));
+						if (pos != StuffType.Solution) {
+							d.setTitle(params[0].getString("title"));
+						} else {
+							d.setTitle(params[0].getString("description").substring(0, 30));
+						}
 						JSONObject tmpJson;
 						String tmp = "";
 						if (pos == StuffType.Problem) {
 							tmp = params[0].getString("owner");
-						} else if (pos == StuffType.Project) {
+						} else if (pos == StuffType.Project || pos == StuffType.Solution) {
 							tmp = params[0].getString("user");
 						}
 						tmpJson = new JSONObject(tmp);
